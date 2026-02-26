@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Game</title>
+
+    <style>
+      body {
+        font-family: Arial;
+        text-align: center;
+      }
+
+      .container {
+        width: 300px;
+        margin: auto;
+      }
+
+      .row {
+        display: flex;
+        justify-content: center;
+        margin: 5px;
+      }
+
+      .scoreboard-letter {
+        width: 50px;
+        height: 50px;
+        border: 2px solid black;
+        margin: 3px;
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Word Masters</h1>
+
+    <div class="container">
+      <div class="row">
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+      </div>
+
+      <div class="row">
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+      </div>
+
+      <div class="row">
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+      </div>
+
+      <div class="row">
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+      </div>
+
+      <div class="row">
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+      </div>
+
+      <div class="row">
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+        <div class="scoreboard-letter"></div>
+      </div>
+    </div>
+
+    <script>
+        const scoreboardLetters = document.querySelectorAll(".scoreboard-letter");
+
+const wordURL = "https://words.dev-apis.com/word-of-the-day";
+let wordX = "";
+async function wordOfTheDay() {
+  const promise = await fetch(wordURL);
+  const processedResponce = await promise.json();
+  const wordXX = processedResponce.word;
+  wordX = wordXX;
+  console.log(wordX);
+}
+
+wordOfTheDay();
+
+document.addEventListener("keyup", function (e) {
+  for (let i = 0; i < 30; i++) {
+    if (scoreboardLetters[i].textContent === "") {
+      scoreboardLetters[i].textContent = e.key;
+      break;
+    }
+  }
+});
+
+document.addEventListener("keyup", function (e) {
+  if (e.key === "Enter") {
+    for (let i = 0; i < 5; i++) {
+      const letter = scoreboardLetters[i].textContent.toLowerCase();
+
+      if (letter === wordX[i]) {
+        scoreboardLetters[i].style.backgroundColor = "green";
+      } else if (wordX.includes(letter)) {
+        scoreboardLetters[i].style.backgroundColor = "gold";
+      } else {
+        scoreboardLetters[i].style.backgroundColor = "gray";
+      }
+    }
+  }
+});
+    </script>
+  </body>
+</html>
